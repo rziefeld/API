@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "2cef68b8-913e-42c0-9070-5d9eb786c39b",
+		"name": "Karat API Release",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Queries",
+			"item": [
+				{
+					"name": "Candidacy Statuses",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query($orderBy: [CandidacyOrderBy!], $filter: CandidacyFilter, $search: String, $first: Int, $last: Int, $before: String, $after: String) {\n      candidacies(orderBy: $orderBy, filter: $filter, search: $search, first: $first, last: $last, before: $before, after: $after)\n  {\n    totalCount\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n    nodes {\n      id\n      status\n      atsUrl\n      atsCandidateId\n      atsApplicationId\n      race\n      gender\n      lastStatusUpdate\n      candidate {\n        id\n        name\n        email\n        safeResumeUrl\n      }\n      recruiter {\n        id\n        name\n        email\n      }\n      role {\n        id\n        name\n        group {\n          id\n          name\n        }\n      }\n      codeChallenges {\n        nodes {\n          id\n          createdAt\n          state\n          endTime\n          recommendation\n        }\n      }\n      interviews {\n        nodes {\n          id\n          createdAt\n          state\n          endTime\n          recommendation\n          isRedo\n          shippedTime\n          result {\n             id\n             overallThoughts\n             updatedAt\n             createdAt\n           }\n          nextRedoInterview {\n            id\n            createdAt\n            state\n            endTime\n            recommendation\n            isRedo\n          }\n        }\n      }\n    }\n  }\n}\n",
+								"variables": "{\n  // All fields are optional\n\n  //\"orderBy\": null, // An array containing any of:\n  //   \"ID\"\n  //   \"CREATED_AT\"\n  //   \"UPDATED_AT\"\n  //   \"CANDIDATE_NAME\"\n  //   \"RECRUITER_NAME\"\n  //   \"ROLE_NAME\"\n  //   \"GROUP_NAME\"\n  //   \"LAST_ACTIVITY\"\n  //   \"LAST_INTERVIEW_AT\"\n  //   \"LAST_STATUS_UPDATE\"\n  //    Suffix: \"_ASC\" or \"_DESC\"\n\n  //\"search\": null, // substring of Candidate's name\n  \n  //\"filter\": {\n  //  \"id\": null, // Array of numeric Candidacy IDs\n  //  \"group\": null, // Array of numeric Group IDs\n  //  \"role\": null, // Array of numeric Role IDs\n  //  \"recruiter\": null, // Array of numeric Recruiter IDs\n  //  \"candidate\": null, //Array of numeric Candidate IDs\n  //  \"archived\": null, // Array of Boolean, see additional notes in documentation\n  //  \"demo\": null, // Array of Boolean, see additional notes in documentation\n  //  \"codeChallengeState\": null, // Array containing any of:\n  //    'INVITED',\n  //    'REGISTERED',\n  //    'IN_PROGRESS',\n  //    'SUBMITTED',\n  //    'SCORING',\n  //    'NEEDS_DECISION',\n  //    'TO_INVITE',\n  //    'INVITE_INTERVIEW',\n  //    'SEND_TO_CLIENT',\n  //    'DECLINED',\n  //    'HOLD',\n  //    'RESET'\n  //  \"interviewState\": null, // Array containing any of:\n  //    'SCHEDULING',\n  //    'SCHEDULED',\n  //    'INTERVIEWING',\n  //    'PROCESSING',\n  //    'CREATING',\n  //    'AWAITING_QC',\n  //    'QC',\n  //    'HOLD',\n  //    'FINAL_CHECK',\n  //    'CONTENT_CHECK',\n  //    'READY_TO_SHIP',\n  //    'SHIPPING',\n  //    'SHIPPED',\n  //    'CANCELLED',\n  //    'RESCHEDULED'\n  //  \"status\": null, // Array containing any of:\n  //    'CODE_CHALLENGE_PENDING',\n  //    'CODE_CHALLENGE_READY_TO_REVIEW',\n  //    'INTERVIEW_PENDING',\n  //    'INTERVIEW_READY_TO_REVIEW'\n  //    'INVITED_TO_PHONE_SCREEN',\n  //    'INVITED_TO_ONSITE_INTERVIEW',\n  //    'DECLINED_AT_KARAT_CODE_CHALLENGE',\n  //    'DECLINED_AT_KARAT_INTERVIEW',\n  //    'DECLINED_AT_PHONE_SCREEN',\n  //    'DECLINED_AT_ONSITE_INTERVIEW'\n  //    'OFFER_OUTSTANDING',\n  //    'OFFER_ACCEPTED',\n  //    'OFFER_DECLINED',\n  //    'INACTIVE'\n  //  \"atsUrl\": null, // The ATS URL for the candidacy\n  //  \"atsUrlSubstring\": null, // A substring of the ATS URL for the candidacy\n  //  \"createdAfter\": null, // ISO8601 date string, \"2021-01-01\",\n  //  \"createdBefore\": null, // ISO8601 date string, \"2021-01-01\",\n  //  \"lastStatusUpdateAfter\": null, // ISO8601 date string, \"2021-01-01\",\n  //  \"lastStatusUpdateBefore\": null // ISO8601 date string, \"2021-01-01\",\n  //}\n}"
+							}
+						},
+						"url": {
+							"raw": "https://{{subdomain}}.karat.io/api/v1/graphql",
+							"protocol": "https",
+							"host": [
+								"{{subdomain}}",
+								"karat",
+								"io"
+							],
+							"path": [
+								"api",
+								"v1",
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Roles",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query($filter: RoleFilter, $orderBy: RoleOrderBy, $search: String) {\n      roles(filter: $filter, orderBy: $orderBy, search: $search)\n  {\n    totalCount\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n    nodes {\n      id\n      name\n      group {\n        id\n        name\n      }\n    }\n  }\n}\n",
+								"variables": "{\n  // All fields are optional\n\n  //\"orderBy\": null, // An array containing any of:\n  //  \"NAME\"\n  //  \"GROUP_ID\"\n  //  \"SCHEDULED_INTERVIEW\"\n  //  \"SHIPPED_INTERVIEW\"\n  //  \"UPDATED_AT\"\n  //  \"LAST_UPDATED\"\n  //  Suffix: \"_ASC\" or \"_DESC\"\n\n  //\"search\": null, // optional, substring of name\n\n  //\"filter\": null // { // field and all subfields optional\n  //  \"archived\": [], // See notes in documentation\n  //  \"demo\": [], // See notes in documentation\n  //  \"group\": [], // group IDs to include\n  //  \"id\": [] // Role IDs to include\n  //}\n}"
+							}
+						},
+						"url": {
+							"raw": "https://{{subdomain}}.karat.io/api/v1/graphql",
+							"protocol": "https",
+							"host": [
+								"{{subdomain}}",
+								"karat",
+								"io"
+							],
+							"path": [
+								"api",
+								"v1",
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Groups",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query($filter: GroupFilter, $search: String) {\n  groups(filter: $filter, search: $search)\n  {\n    totalCount\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n    nodes {\n      id\n      name\n    }\n  }\n}",
+								"variables": "{\n  // All fields are optional\n\n  //\"search\": null, // substring of Group name\n  \n  //\"filter\": null // {\n  //  \"id\": [] // Role IDs to include\n  //}\n}"
+							}
+						},
+						"url": {
+							"raw": "https://{{subdomain}}.karat.io/api/v1/graphql",
+							"protocol": "https",
+							"host": [
+								"{{subdomain}}",
+								"karat",
+								"io"
+							],
+							"path": [
+								"api",
+								"v1",
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query($filter: UserFilter, $orderBy: [UserOrderBy!], $search: String) {\n users(filter: $filter, orderBy: $orderBy, search: $search) {\n   totalCount\n   pageInfo {\n     endCursor\n     hasNextPage\n   }\n   nodes {\n     id\n     name\n     email\n     phone\n     timeZone\n     clientUserType\n     lastSeen\n     groups {\n       nodes {\n         id\n         name\n       }\n     }\n   }\n }\n}",
+								"variables": "{\n  // All fields are optional\n\n  //\"orderBy\": null // An array containing any of:\n  //  \"ID\",\n  //  \"CREATED_AT\",\n  //  \"UPDATED_AT\",\n  //  \"LAST_SEEN\",\n  //  \"NAME\",\n  //  \"EMAIL\",\n  //  \"CLIENT_USER_TYPE\"\n  //suffixed with \"_ASC\" or \"_DESC\"\n\n  //\"search\": null // optional, case-insensitive substring of name/email\n\n  //\"filter\": {\n  //  \"clientUserType\": null, // Array of any of:\n  //      \"ADMIN\",\n  //      \"TEAM_MEMBER\",\n  //      \"LIMITED_TEAM_MEMBER\",\n  //      \"EXTERNAL_MEMBER\"\n  //   \"group\": null, // Array of IDs of the Groups that fetched Users should belong to\n  //   \"disabled\": null, // Boolean, signifying whether fetched Users should be disabled\n  // }\n}"
+							}
+						},
+						"url": {
+							"raw": "https://{{subdomain}}.karat.io/api/v1/graphql",
+							"protocol": "https",
+							"host": [
+								"{{subdomain}}",
+								"karat",
+								"io"
+							],
+							"path": [
+								"api",
+								"v1",
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mutations",
+			"item": [
+				{
+					"name": "Invite",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation CreateInvitation(\n  $name: String!\n  $email: String!\n  $roleId: ID!\n  $phone: String\n  $atsUrl: String\n  $resume: String\n  $githubUrl: String\n  $linkedinUrl: String\n) {\n  createInvitation (\n    input: {\n      name: $name\n      email: $email\n      roleId: $roleId\n      phone: $phone\n      atsUrl: $atsUrl\n      resume: $resume\n      githubUrl: $githubUrl\n      linkedinUrl: $linkedinUrl\n    }\n  )\n  {\n   assessment {\n    id\n   }\n   errors {\n       message\n   }\n  }\n}",
+								"variables": "\n{\n  // These fields are mandatory\n  \n  \"name\": \"Candidate Name\",\n  \"email\": \"CANDIDATE_EMAIL_ADDRESS\",\n  \"roleId\": \"NUMERIC_ROLE_ID\"\n\n  // The following fields are optional\n\n  // \"phone\": null, // The candidate's phone number as a string, e.g. \"+16565551234\"\n  // \"atsUrl\": null, // The ATS URL for the candidate, e.g. \"https://api.ats.com/u/12321\",\n  // \"resume\": null, // The Resume URL for the candidate, e.g. \"https://dropbox.com/q/resume.pdf\",\n  // \"githubUrl\": null, // The GitHub URL for the candidate, e.g. \"https://github.com/someuser\",\n  // \"linkedinUrl\": null, // The LinkedIn URL for the candidate, e.g. \"https://linkedin.com/1231231\"\n}"
+							}
+						},
+						"url": {
+							"raw": "https://{{subdomain}}.karat.io/api/v1/graphql",
+							"protocol": "https",
+							"host": [
+								"{{subdomain}}",
+								"karat",
+								"io"
+							],
+							"path": [
+								"api",
+								"v1",
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Disposition",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation($updates: [CandidacyStatusWithCandidacies!]!) {\n  bulkUpdateCandidacyStatus(input: {updates: $updates}) {\n    successfulUpdates\n    failedUpdates\n    errors {\n      message\n    }\n  }\n}",
+								"variables": "{\n  // All fields are mandatory\n\n  \"updates\":[\n    {\n      \"ids\": [\"first_candidacy_id\", \"second_candidacy_id\"], // The list of roles to update\n      \"status\": \"DECLINED_AT_ONSITE_INTERVIEW\" // one of the following:\n      // INVITED_TO_PHONE_SCREEN\n      // INVITED_TO_ONSITE_INTERVIEW\n      // DECLINED_AT_PHONE_SCREEN\n      // DECLINED_AT_ONSITE_INTERVIEW\n      // OFFER_OUTSTANDING\n      // OFFER_ACCEPTED\n      // OFFER_DECLINED\n      // INACTIVE\n    }\n//  { // One for each status can be returned\n//    \"ids\": [\"third_candidacy_id\", \"fourth_candidacy_id\"], // The list of roles to update\n//    \"status\": \"INVITED_TO_ONSITE_INTERVIEW\" \n//    }\n  ]\n}"
+							}
+						},
+						"url": {
+							"raw": "https://{{subdomain}}.karat.io/api/v1/graphql",
+							"protocol": "https",
+							"host": [
+								"{{subdomain}}",
+								"karat",
+								"io"
+							],
+							"path": [
+								"api",
+								"v1",
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "YOUR_API_KEY"
+		},
+		{
+			"key": "subdomain",
+			"value": "YOUR_SUBDOMAIN"
+		}
+	]
+}
